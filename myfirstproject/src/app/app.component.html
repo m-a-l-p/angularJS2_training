@@ -1,0 +1,41 @@
+<div class="container">
+  <!-- View Mode -->
+  <section *ngIf="!isEditMode">
+    <h1>{{title}}</h1>
+    <ul>
+      <li *ngFor="let item of users; let i = index" (click)="selectedUser = item">
+        ({{i}}) {{item.name}} <span>{{item.age}}</span>
+        <button class="btn btn-danger" (click)="deleteUser(i)"> X </button>
+      </li>
+    </ul>
+    <div>Sum of members' age: {{ getUsers() | sumPipe | myPipe:" x 12 months" }}</div>
+    <button class="btn btn-success" (click)="addUser()">Add member</button>
+
+    <pre>{{getUsers() | filterPipe | json}}</pre>
+    <h1>Detail</h1>
+    <div>
+      <b>Name: </b>{{selectedUser.name}}
+      <b>Age: </b>{{selectedUser.age | myPipe}}
+      <b>Weight: </b>{{selectedUser.weight}}
+      <b>Height: </b>{{selectedUser.height}}
+      <br/>
+      <!-- add edit button -->
+      <button class="btn btn-primary" (click)="isEditMode=true">EDIT</button>
+    </div>
+  </section>
+  <!-- Edit Mode -->
+  <section *ngIf="isEditMode">
+    <button (click)="isEditMode=false">BACK</button>
+    <h2>Editor</h2>
+    <div>
+      <input type="text" [(ngModel)]="selectedUser.name" /><br/>
+      <input type="number" [(ngModel)]="selectedUser.age" /><br/>
+      <input type="number" [(ngModel)]="selectedUser.weight" /><br/>
+      <input type="number" [(ngModel)]="selectedUser.height" /><br/>
+      <b>BMI: </b>{{selectedUser.getBMI()}}
+      <span *ngIf="selectedUser.isHealthy()"> Yay! </span>
+      <button class="btn btn-info" (click)="onCheckAge()">Check Age</button>
+      <button class="btn btn-success" (click)="onCheckBMI()">Check BMI</button>
+    </div>
+  </section>
+</div>
