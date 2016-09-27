@@ -1,0 +1,14 @@
+<div>
+  <table class='table table-striped'>
+    <tr>
+      <th>Order Id</th>
+      <th>Total</th>
+    </tr>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td><a routerLink="../receipt/{{ order.id }}"> {{ order.id }} </a></td>
+        <td> {{ order.getTotal() | currency }} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
