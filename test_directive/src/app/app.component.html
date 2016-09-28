@@ -1,0 +1,32 @@
+<h1>
+  {{title}}
+</h1>
+<!--p [highlight]="'black'">Highlight me, black!</p>
+<p [highlight]="'blue'">Highlight me, blue!</p>
+<p  [highlight]="'red'">Highlight me, red!</p>
+<p  [highlight]="'green'">Highlight me, green!</p>
+<p  [highlight]="'yellow'">Highlight me, yellow!</p>
+<p  highlight>Highlight me, anything!</p -->
+
+<!-- input type='text' [(ngModel)]="color"/>
+<p  [highlight]="color">Highlight me, anything!</p>
+<p  [highlight]="color">Highlight me, anything!</p>
+<p  [highlight]="color">Highlight me, anything!</p>
+<p  [highlight]="color">Highlight me, anything!</p>
+<p  [highlight]="color">Highlight me, anything!</p>
+<p  [highlight]="color">Highlight me, anything!</p -->
+
+<app-output [input]="counter" (outputBack)="onBack($event)"></app-output>
+<br/>
+Counter: {{counter}}
+<br/>
+<input type='text' [(ngModel)]="color"/>
+<br/>
+<select [(ngModel)]="color2">
+  <option *ngFor="let item of colorOptions" value="{{item}}">{{item}}</option>
+</select>
+<p [highlight]="color2" [color]="green">Highlight me!</p>
+<p [highlight]="color2" [color]="green">Highlight me!</p>
+<p  [highlight]="color2" [color]="green">Highlight me!</p>
+<p  [highlight]="color2" [color]="green">Highlight me!</p>
+<p  [highlight]="color2" [color]="green">Highlight me!</p>
