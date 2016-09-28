@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReceiptComponent } from './receipt/receipt.component';
 import { AboutComponent } from './about/about.component';
 import { ReceiptSelectorComponent } from './receipt-selector/receipt-selector.component';
+import { ReceiptEditorComponent } from './receipt-editor/receipt-editor.component';
 
 //creates appRoute constant
 const appRoute: Routes = [
@@ -23,11 +24,11 @@ const appRoute: Routes = [
     {
         path: 'receipt/:id',
         component: ReceiptComponent
+    },
+    {
+        path: 'edit/:id',
+        component: ReceiptEditorComponent
     }
-    /*{
-        path: 'receipt',
-        component: ReceiptComponent
-    }*/
 ];
 
 //export the routing to module

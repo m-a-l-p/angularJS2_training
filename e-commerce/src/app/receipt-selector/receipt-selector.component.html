@@ -1,5 +1,8 @@
 <!-- pre>{{orders|json}}</pre -->
 <div>
+  <div>
+    <button class="btn btn-primary" (click)="loadFromURL()">Load Data FROM URL</button>
+  </div>
   <table class='table table-striped'>
     <tr>
       <th>Order Id</th>
@@ -7,9 +10,15 @@
     </tr>
     <tbody>
       <tr *ngFor="let order of orders">
-        <td><a routerLink="../receipt/{{ order.id }}"> {{ order.id }} </a></td>
+        <td>
+            <a routerLink="../receipt/{{ order.id }}"> {{ order.id }} </a>
+            <a routerLink="../edit/{{ order.id }}" class="btn btn-info"> EDIT </a>
+        </td>
         <td> {{ order.getTotal() | currency }} </td>
       </tr>
     </tbody>
   </table>
+  <div>
+    <button class="btn btn-primary" (click)="newOrder()">NEW Order</button>
+  </div>
 </div>

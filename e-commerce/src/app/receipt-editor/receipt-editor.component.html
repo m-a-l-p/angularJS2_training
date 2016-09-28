@@ -1,0 +1,56 @@
+<!-- pre> {{order | json}} </pre -->
+<div class="row">
+  <!-- START edit date -->
+  <div class="col-md-1">
+    <label>Create Date</label>
+  </div>
+  <div class="col-md-11">
+    <label>
+      <input type="date" [(ngModel)]="formDate" class="form-control"/>
+    </label>
+  </div>
+</div>
+  <!-- END edit date -->
+  <!-- DIV VERSION -->
+  <!-- START edit items -->
+<!-- div class="row" *ngFor="let item of order.items">
+  <div class="col-md-3">
+    <Input class="text" placeholder="Item"/>
+  </div>
+  <div class="col-md-3">
+    <Input class="number" placeholder="Quantity"/>
+  </div>
+  <div class="col-md-3">
+    <Input class="numbertext" placeholder="Unit Price"/>
+  </div>
+</div -->
+  <!-- END edit items -->
+
+  <!-- TABLE VERSION -->
+
+<div class="debug-mode">
+  validate status: {{validate()}}
+</div>
+<br/>
+<table class="table">
+  <tr class="row" *ngFor="let orderItem of order.items; let i = index">
+    <td class="col-md-3">
+      <input type="text" placeholder="Item" [(ngModel)]="orderItem.item" class="form-control"/>
+    </td>
+    <td class="col-md-3">
+      <input type="number" placeholder="Quantity" [(ngModel)]="orderItem.quantity" class="form-control"/>
+    </td>
+    <td class="col-md-3">
+      <input type="numbertext" placeholder="Unit Price" [(ngModel)]="orderItem.unit_price" class="form-control"/>
+    </td>
+    <td class="col-md-3">
+      <button class="btn btn-danger" (click)="deleteItem(i)"> X </button>
+    </td>
+  </tr>
+</table>
+<div>
+  <a class="btn btn-primary" routerLink="../../home">BACK</a>
+  <button class="btn btn-info" (click)="addItem()">ADD Item</button>
+  <button class="btn btn-success" (click)="onSave()">SAVE</button>
+  <button class="btn btn-danger" (click)="onDelete()">DELETE</button>
+</div>

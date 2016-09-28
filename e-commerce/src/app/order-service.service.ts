@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import { Operator, Observable } from 'rxjs';
 import { Order } from './order';
 import { OrderItem } from './order-item';
 
@@ -21,12 +24,14 @@ const ORDERS = [
         ], new Date("2016-01-10"))
     ];
 
-const LOCAL_KEY: string = "order_key"; 
+const LOCAL_KEY: string = "order_key";
+
+const URL: string = 'data/orders.json'; //path of files (backend)
 
 @Injectable()
 export class OrderServiceService {
 
-  constructor() { 
+  constructor(private _http: Http) { 
     this.load();
   }
   private _orders: Array<Order>;
@@ -57,6 +62,35 @@ export class OrderServiceService {
     return this._orders;
   }
 
+  //using subscribe and toPromise
+  // getOrderFromURL(/*callback: Function*/): Promise<Array<Order>> { //Promise<Array<Order>>
+  //   return this._http.get(URL)
+  //               .toPromise()
+  //               .then( resp => this.loadData( resp.json() ))
+  //               .catch( reason => [] );
+  //   /*this._http.get(URL).subscribe( data => {
+  //     console.log(data);
+  //     console.log(data.json());
+  //     callback(this.loadData(data.json())); //to return Array<Order>
+  //   });*/
+  // }
+
+  //using Observable
+  // getOrderFromURL(): Observable<Array<Order>> {
+  //   return this._http.get(URL).map( resp => {
+  //     this._orders = this.loadData(resp.json());
+  //     return this._orders;
+  //   });
+  // }
+
+  loadDataFromURL(): Promise<Array<Order>> {
+    return this._http.get(URL).toPromise().then( resp => {
+      this._orders = this.loadData( resp.json() );
+      this.save();
+      return this._orders;
+    });
+  }
+
   getAllOrder(): Array<Order> {
     return this._orders;
   }
@@ -66,6 +100,31 @@ export class OrderServiceService {
     return this.getAllOrder().find((item: Order, index: number, all_order: Order[]) => {
       return item.id == id;
     });
+  }
+
+  //update the order and save to DB
+  updateOrder(order: Order) {
+    //find index of the corresponding order in _orders
+    let index = this._orders.findIndex ( item => {
+      return item.id == order.id;
+    });
+    //replace _orders[index] with order
+    this._orders[index] = order;
+    
+    //save()
+    this.save();
+  }
+
+  //delete the order with the given id from the DB
+  deleteOrder(id: string) {
+    let index = this._orders.findIndex ( item => {
+      return item.id == id;
+    });
+    //replace _orders[index] with order
+    this._orders.splice(index, 1);
+    
+    //save()
+    this.save();
   }
 
   loadData(orders_json_array: Array<any>) {
